@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mipsi Create Account</title>
+    </head>
+    <body>
+        <h1>mipsi create account</h1>
+        <p>To create a account you will need a hashed password (so no one can ever see your password) <br> To create a hashed password, follow the following steps:</p>
+        <ol>
+            <li>Choose a strong password.</li>
+            <li>Type your password into the box below.</li>
+            <li>Send the hashed password you get back to one of the server administrators. They will handle the rest and let you know.</li>
+        </ol>
+        <form method="post">
+            <p>password:</p>
+            <input type="password" placeholder="password" name="password" required>
+            <input type="submit" value="Submit">
+        </form>
+        <div>
+            {{text}}
+        </div>
+    </body>
+</html>
