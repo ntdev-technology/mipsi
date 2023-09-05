@@ -1,0 +1,82 @@
+body {
+    display: grid;
+    grid-template-areas: 
+    "head head head"
+    "sidebar dashboard dashboard"
+    "sidebar dashboard dashboard";
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-columns: auto 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.header {
+    grid-area: head;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: minecraft;
+    font-size: 20px;
+    margin-top: 0px;
+    border: 5px solid #1D263B;
+    border-bottom: none;
+    padding: 10px;
+    color: #BF6900;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    height: calc(100% - 2px); /* adjust for border */
+    min-width: 250px;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    font-family: minecraft;
+    border: 5px solid #1D263B;
+    border-bottom: none;
+}
+
+.dashboard {
+    grid-area: dashboard;
+    height: calc(100% - 2px); /* adjust for border */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 5px solid #1D263B;
+    border-bottom: none;
+    border-left: none;
+}
+
+
+.sb_button {
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-family: minecraft;
+    font-size: 12px;
+    background-color: #B1C1C0;
+    color: #BF6900;
+    margin-top: 2px;
+}
+
+.sb_footer {
+    color: #000;
+}
+
+@font-face {
+    font-family: minecraft;
+    src: url(./assets/minecraft.ttf);
+   }
+
+/* 
+B1C1C0 - light gray
+F58F29 - Dark orange
+5C6784 - baby blue
+1D263B - Dark blue
+BF6900 - Darker orange
+
+*/
