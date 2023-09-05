@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./static/assets/style_login.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/style_login.css">
     <title>MiPSI - LOGIN</title>
 </head>
 <body>
-    <form method="post">
-        <div class="login_window">
+    <div class="login_window">
+        <form method="post" class="form">
+        
             <h1 class="master_txt">LOGIN</h1>
-            <label for="UsernameInput">Username:</label>
-            <input type="text" id="UsernameInput" name="username" placeholder="username" required></input>
-            <label for="PasswordInput">Password:</label>
-            <input type="password" id="PasswordInput" name="password" placeholder="password" required></input>
+            <label class="font-mc" for="UsernameInput">Username:</label>
+            <input type="text" id="UsernameInput" name="username" placeholder="username" required>
+            <label class="font-mc" for="PasswordInput">Password:</label>
+            <input type="password" id="PasswordInput" name="password" placeholder="password" required>
             <button class="button" id="submitButton">Login</button>
-            <button class="button" id="CreateNew">Create account</button>
-            <footer class="footer">© 2023 Niek van Reenen, Timo Oosterom and Thimo Smits</footer>
-            <h6 class="legal_footer">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT</h6>
-        </div>
-    </form>
+            
+        
+        </form>
+            <button  class="button" id="CreateNew">Create account</button>
+            <div class="statusmsg">{{status}}</div>
+            <footer class="footer">© 2023 Niek van Reenen, Timo Oosterom</footer>
+            <h6 class="legal_footer">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</h6>
+    </div>
+    <script href="../config.js"></script>
 
 </body>
 </html>
