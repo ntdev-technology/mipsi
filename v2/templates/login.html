@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Mipsi Login</title>
-    </head>
-    <body>
-        <h1>mipsi login</h1>
-        <form method="post">
-            <p>username:</p>
-            <input type="text" placeholder="username" name="username" required>
-            <br>
-            <p>password</p>
-            <input type="password" placeholder="password" name="password" required>
-            <input type="submit" value="Login">
-        </form>
-        <a href="/createaccount">Create Account</a>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./static/assets/style_login.css">
+    <title>MiPSI - LOGIN</title>
+</head>
+<body>
+    <form method="post">
+        <div class="login_window">
+            <h1 class="master_txt">LOGIN</h1>
+            <label for="UsernameInput">Username:</label>
+            <input type="text" id="UsernameInput" name="username" placeholder="username" required></input>
+            <label for="PasswordInput">Password:</label>
+            <input type="password" id="PasswordInput" name="password" placeholder="password" required></input>
+            <button class="button" id="submitButton">Login</button>
+            <button class="button" id="CreateNew">Create account</button>
+            <footer class="footer">© 2023 Niek van Reenen, Timo Oosterom and Thimo Smits</footer>
+            <h6 class="legal_footer">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT</h6>
+        </div>
+    </form>
+
+</body>
 </html>
