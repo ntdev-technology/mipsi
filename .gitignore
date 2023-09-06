@@ -1,6 +1,7 @@
-v2/bin
-v2/include
-v2/lib
-v2/lib64
-v2/pyvenv.cfg
+**/bin
+**/include
+**/lib
+**/lib64
+**/pyvenv.cfg
 .vscode
+
