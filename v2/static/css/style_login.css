@@ -7,7 +7,7 @@ body {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    background-image: url("./mc_background.jpg");
+    background-image: url("../assets/mc_background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -54,6 +54,7 @@ label {
   font-size: 14px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .button {
   margin-top: 20px;
   padding: 5px;
@@ -101,7 +102,7 @@ label {
 
  @font-face {
   font-family: minecraft;
-  src: url(./minecraft.ttf);
+  src: url(../assets/minecraft.ttf);
  }
 
 .font-mc {
