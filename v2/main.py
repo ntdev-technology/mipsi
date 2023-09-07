@@ -18,9 +18,11 @@ def createPwHash(password: str) -> str:
 def checkPw(username, password) -> bool:
 	conn = getDBConn('users')
 	cur = conn.cursor()
-	shash: str = cur.execute('SELECT passwordhash FROM users WHERE username=?', (username,)).fetchall()[0][0]
-	salt, hash = shash.split('|')
-	pwhash = bcrypt.hashpw(password.encode('utf-8'), salt.encode('utf-8')).decode('utf-8')
+	try:
+		shash: str = cur.execute('SELECT passwordhash FROM users WHERE username=?', (username,)).fetchall()[0][0]
+		salt, hash = shash.split('|')
+		pwhash = bcrypt.hashpw(password.encode('utf-8'), salt.encode('utf-8')).decode('utf-8')
+	except: return False
 	if  pwhash == hash:
 		return True
 	else:
@@ -47,7 +49,7 @@ def login():
 			print(request.form['username'])
 			print(request.form['password'])
 			
-			return render_template('login.html', status=checkPw(request.form['username'], 'login succesfill' if str(request.form['password']) else 'login failed'))
+			return render_template('login.html', status='login succesfill' if checkPw(request.form['username'], request.form['password']) else 'login failed')
 		
 
 
