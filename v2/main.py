@@ -1,4 +1,6 @@
 from flask import Flask, render_template, send_file, redirect, request
+from flask_login import current_user
+from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 import bcrypt
 
@@ -31,6 +33,9 @@ def checkPw(username, password) -> bool:
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ba74a4e1a84eddcc42742bb1e0f2a80abe10ad165b010855'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/users.db'
+db = SQLAlchemy(app)
+db.init_app(app)
 
 
 
@@ -71,6 +76,22 @@ def hash():
 		case 'POST':
 			return render_template('/createaccount.html', text=createPwHash(request.form['password']))
 		
+
+@app.route('/logout')
+def logout():
+	# some code to log the user out
+	return redirect('/login')
+
+
+class User(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	email = db.Column(db.String(100), unique=True)
+	username = db.Column(db.String(100), unique=True)
+	password = db.Column(db.String(100))
+
+
+
+
 
 
 
