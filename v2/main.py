@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file, redirect, request
+from flask import Flask, flash, render_template, send_file, redirect, request
 from flask_login import current_user
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3
@@ -51,10 +51,8 @@ def login():
 		case 'GET':
 			return render_template('login.html')
 		case 'POST':
-			print(request.form['username'])
-			print(request.form['password'])
-			
-			return render_template('login.html', status='login succesfill' if checkPw(request.form['username'], request.form['password']) else 'login failed')
+			valid = 'login succesfill' if checkPw(request.form['username'], request.form['password']) else 'login failed'
+			return render_template('login.html', status=valid)
 		
 
 
@@ -88,6 +86,8 @@ class User(db.Model):
 	email = db.Column(db.String(100), unique=True)
 	username = db.Column(db.String(100), unique=True)
 	password = db.Column(db.String(100))
+	uuid = db.Column(db.String(100))
+
 
 
 
