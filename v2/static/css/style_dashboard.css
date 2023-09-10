@@ -53,14 +53,18 @@ body {
 
 
 .sb_button {
-    width: 100%;
+    width: 97%;
     padding-top: 5px;
     padding-bottom: 5px;
     font-family: minecraft;
     font-size: 12px;
     background-color: #B1C1C0;
     color: #BF6900;
-    margin-top: 2px;
+    margin: 2px 3px 1px 3px;
+}
+
+.sb_button:hover {
+    background-color: #90A0A0;
 }
 
 .sb_footer {
@@ -72,6 +76,9 @@ body {
     src: url(./assets/minecraft.ttf);
    }
 
+.font-mc {
+    font-family: minecraft;
+}
 /* 
 B1C1C0 - light gray
 F58F29 - Dark orange
