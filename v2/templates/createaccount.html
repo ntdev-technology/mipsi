@@ -2,23 +2,39 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Mipsi Create Account</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="./static/css/style_create_acc.css">
+        <title>MiPSI - CREATE ACCOUNT</title>
     </head>
     <body>
-        <h1>mipsi create account</h1>
-        <p>To create a account you will need a hashed password (so no one can ever see your password) <br> To create a hashed password, follow the following steps:</p>
-        <ol>
-            <li>Choose a strong password.</li>
-            <li>Type your password into the box below.</li>
-            <li>Send the hashed password you get back to one of the server administrators. They will handle the rest and let you know.</li>
-        </ol>
-        <form method="post">
-            <p>password:</p>
-            <input type="password" placeholder="password" name="password" required>
-            <input type="submit" value="Submit">
-        </form>
-        <div>
-            {{text}}
+        <div class="window">
+            <form method="post" class="form">
+                <h1 class="master_txt">mipsi create account</h1>
+                <label for="username" class="font-mc">Username:</label>
+                <input id="username"  type="text"     name="username" placeholder="Username" required>
+                <br>
+                <label for="password" class="font-mc">Password:</label>
+                <input id="password"  type="password" name="password" placeholder="password" required>
+                <br>
+                <label for="email"    class="font-mc">Email:</label>
+                <input id="email"     type="text"     name="email"    placeholder="email"    required>
+                <br>
+                <label for="mcname"   class="font-mc">MC Username:</label>
+                <input id="mcname"    type="text"     name="mcname"   placeholder="mcname"   required>
+                <br>            
+                <label for="uuid"     class="font-mc">MC UUID:</label>
+                <input id="uuid"      type="text"     name="uuid"     placeholder="uuid"     required>
+                <br>
+                <input type="submit"  class="button" value="create account">
+            </form>
+        <a href="/login"><button class="button">Back to login</button></a>
         </div>
+        <div class="statusmsg">{% with messages = get_flashed_messages() %}
+            {% if messages %}
+               {% for message in messages %}
+                  {{ message }}
+               {% endfor %}
+            {% endif %}
+         {% endwith %}</div>
     </body>
 </html>

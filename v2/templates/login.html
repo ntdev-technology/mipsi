@@ -20,7 +20,13 @@
         
         </form>
             <a href="/createaccount"><button class="button" id="CreateNew">Create account</button></a>
-            <div class="statusmsg">{{status}}</div>
+            <div class="statusmsg">{% with messages = get_flashed_messages() %}
+                {% if messages %}
+                   {% for message in messages %}
+                      {{ message }}
+                   {% endfor %}
+                {% endif %}
+             {% endwith %}</div>
             <footer class="footer">© 2023 Niek van Reenen, Timo Oosterom</footer>
             <h6 class="legal_footer">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</h6>
     </div>
