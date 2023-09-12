@@ -92,12 +92,25 @@ body {
     color: #c5c5c5;
     margin-top: auto;
 }
+.main_msg {
+    font-family: minecraft;
+    font-size: 18px;
+    color: #c5c5c5;
+    text-decoration: none;
+    
+}
+
 
 @font-face {
     font-family: minecraft;
     src: url(../assets/minecraft.ttf);
    }
   
+.welcome_msg {
+    font-family: minecraft;
+    font-size: 40px;
+    color: #c5c5c5;
+}
 
 .font-mc {
     font-family: minecraft;

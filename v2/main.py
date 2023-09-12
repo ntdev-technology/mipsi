@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Callable
 import subprocess
 import threading
+import random
 import bcrypt
 import os
 import re
@@ -90,9 +91,13 @@ def favicon():
 @app.route('/dashboard')
 # @roles_accepted('Admin')
 def dashboard():
-	return render_template('dashboard.html', version=__version__)
+	
+	return render_template('dashboard.html', version=__version__, username='testusr')
 
 @app.route('/access', methods=['GET', 'POST'])
+def access():
+	
+	return render_template('access.html')
 
 
 @app.route('/createaccount', methods=['GET', 'POST'])
