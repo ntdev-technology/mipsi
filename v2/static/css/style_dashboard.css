@@ -11,7 +11,8 @@ body {
     min-height: 100vh;
     margin: 0px;
     padding: 0px;
-    background-color: rgb(100, 140, 200);
+    background-color: rgb(60, 60, 60);
+    overflow: hidden;
 }
 
 
@@ -21,24 +22,30 @@ body {
     align-items: center;
     text-align: center;
     font-family: minecraft;
-    font-size: 20px;
-    margin-top: 0px;
-    border: 5px solid #000000;
+    font-size: 40px;
+    border: 5px solid rgb(125, 125, 125);
     border-bottom: none;
     padding: 10px;
-    color: #BF6900;
+    color: rgb(255, 170, 70);
+}
+
+.header-txt {
+    margin: 0 3px 0 3px;
 }
 
 .sidebar {
     grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
     height: calc(100% - 2px); /* adjust for border */
-    min-width: 250px;
+    max-width: 260px;
     justify-content: center;
     align-content: center;
     text-align: center;
     font-family: minecraft;
-    border: 5px solid rgb(0, 0, 0);
+    border: 5px solid rgb(125, 125, 125);
     border-bottom: none;
+    color: #c5c5c5;
 }
 
 .dashboard {
@@ -47,7 +54,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 5px solid #000000;
+    border: 5px solid rgb(125, 125, 125);
     border-bottom: none;
     border-left: none;
 }
@@ -58,21 +65,32 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     font-family: minecraft;
-    font-size: 10px;
+    font-size: 15px;
     background-color: rgba(255, 255, 255, 0.5);
     color: #BF6900;
-    margin: 2px 0px 2px 0px;
+    margin: 2px;
     border: 2px solid #ffffff;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     
 }
 
 .sb_button:hover {
     background-color: rgba(255, 255, 255, 0.7);
 }
+.sb_footer_legal {
+    color: #c5c5c5;
+    font-size: 9px;
+    padding-bottom: 2px; 
+}
+
+.logo {
+    width: 60%;
+    margin: 20px auto 0 auto;
+}
 
 .sb_footer {
-    color: #000;
+    color: #c5c5c5;
+    margin-top: auto;
 }
 
 @font-face {
@@ -90,5 +108,4 @@ F58F29 - Dark orange
 5C6784 - baby blue
 1D263B - Dark blue
 BF6900 - Darker orange
-
 */

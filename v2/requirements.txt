@@ -1,6 +1,8 @@
 flask
 flask-login
 flask-sqlalchemy
+flask-security
+email-validator
 pyopenssl
 termcolor
 bcrypt
