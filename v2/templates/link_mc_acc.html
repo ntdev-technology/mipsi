@@ -11,15 +11,15 @@
         <form method="post" class="form">
         
             <h1 class="master_txt">Link Minecraft Account</h1>
-            <label class="font-mc" for="UsernameInput">Minecraft username</label>
-            <input type="text" id="UsernameInput" name="username" placeholder="MC Username" required>
-            <label class="font-mc" for="PasswordInput">Minecraft full UUID:</label>
-            <input type="text" id="PasswordInput" name="mc_uuid" placeholder="Full UUID" required>
+            <label class="font-mc" for="mcname">Minecraft username</label>
+            <input type="text" id="mcname" name="mcname" placeholder="MC Username" required>
+            <label class="font-mc" for="uuid">Minecraft full UUID:</label>
+            <input type="text" id="uuid" name="uuid" placeholder="Full UUID" required>
             <button class="button" id="submitButton">Link account to mipsi</button>
         </form>
         <a href="/access"><button class="button" id="back">Return to Dashboard</button></a>
 
-        <p class="expl">To get your UUID go to <a href="https://mcuuid.net/">here</a> and enter your user name. <br> Please check before continuing!
+        <p class="expl">To get your UUID go to <a href="https://mcuuid.net/" target="_blank">here</a> and enter your user name. <br> Please check before continuing!
         <div class="statusmsg">{% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}

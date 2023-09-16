@@ -56,10 +56,10 @@ def root():
 def login() -> Callable:
 	match request.method:
 		case 'GET':
-			return render_template('login.html')
-		case 'POST':
 			if current_user.is_authenticated:
 				return redirect('/dashboard')
+			return render_template('login.html')
+		case 'POST':
 			try:
 				usr: User = User.query.filter_by(
 				username=request.form['username']).first()
@@ -72,7 +72,7 @@ def login() -> Callable:
 					return render_template('/login.html')	
 			except Exception as e:
 				print(e)
-				flash('Username or Password incorrect ') # user doesn't exist, username
+				flash('Username or Password incorrect') # user doesn't exist, username
 				return render_template('/login.html')
 
 		
@@ -112,12 +112,15 @@ def link_mc_acc():
 				flash('minecraft account already linked')
 				return redirect('/access')
 			return render_template('/link_mc_acc.html')
+		
 		case 'POST':
-			
-
+			current_user.mcname = request.form['mcname']
+			current_user.uuid = request.form['uuid']
+			db.session.commit()
 
 			flash('Minecraft Account Data Succesfull Linked')
 			return redirect('/access')
+
 	return render_template('link_mc_acc.html')
 
 @app.route('/add_role')

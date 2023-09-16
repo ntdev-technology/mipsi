@@ -1,6 +1,7 @@
 {% extends 'dashboard_base.html' %}
 {% block content %}
-    
+
+<p class="a_txt">Status: {{"account linked" if current_user.mcname != None else "acount not yet linked"}} </p>
 <p class="a_txt">Registered Minecraft Username: {{current_user.mcname}}</p>
 <p class="a_txt">Registered Minecraft UUID: {{current_user.uuid}}</p>
 <button class="db_button">Ontgrendel Account</button>

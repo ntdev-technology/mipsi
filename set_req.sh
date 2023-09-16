@@ -12,7 +12,7 @@ read -p "Do you want to install the needed requirements for MiPSI? (Y/N): " resp
 
 if [[ "$response"] =~ ^[Yy]]; then
     echo "installing needed requirements"
-    apt-get update && apt-get install python3 && apt-get install pip && pip install bcript
+    apt-get update && apt-get install python3 && apt-get install pip && pip install -r v2/requirements.txt --upgrade
 
 elif [[ "$response"] =~ ^[Nn]]; then
     echo "exiting..."
