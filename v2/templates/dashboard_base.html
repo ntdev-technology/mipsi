@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./static/css/style_dashboard.css">
+    <title>MiPSI - Dashboard</title>
+</head>
+
+<body>
+    <div class="header">
+        <p class="header-txt">MiPSI</p>
+    </div>
+
+    <div class="sidebar">
+        <a href="/dashboard"><img class="logo" src="./static/assets/Logo.svg" alt="mipsi logo"></a>
+        <h2>Navigation</h2>
+        <a href="/dashboard"><button class="sb_button" id="Home">Home</button></a> 
+        <a href='/access'><button class="sb_button" id="Access">Access</button></a>
+        {% if "operator" in current_user.roles %}
+        <a href="/console"><button class="sb_button" id="Console">Console</button></a>
+        {% endif %}
+        {% if "admin" in current_user.roles %}
+        <a href="/admin"><button class="sb_button" id="Admin">Admin</button></a>
+        {% endif %}
+        <a href="/logout"><button class="sb_button" id="Logout">Logout</button></a>
+        <h5 class="sb_footer">MiPSI {{version}}</h5>
+        <p class="sb_footer_legal">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED <br> BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
+    </div>
+    <div class="dashboard">
+       {% block content %}
+       {% endblock %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./static/css/link_mc_acc.css">
+    <title>MiPSI - Link MC Account</title>
+</head>
+<body>
+    <div class="link_window">
+        <form method="post" class="form">
+        
+            <h1 class="master_txt">Link Minecraft Account</h1>
+            <label class="font-mc" for="UsernameInput">Minecraft username</label>
+            <input type="text" id="UsernameInput" name="username" placeholder="MC Username" required>
+            <label class="font-mc" for="PasswordInput">Minecraft full UUID:</label>
+            <input type="text" id="PasswordInput" name="mc_uuid" placeholder="Full UUID" required>
+            <button class="button" id="submitButton">Link account to mipsi</button>
+        </form>
+        <a href="/access"><button class="button" id="back">Return to Dashboard</button></a>
+
+        <p class="expl">To get your UUID go to <a href="https://mcuuid.net/">here</a> and enter your user name. <br> Please check before continuing!
+        <div class="statusmsg">{% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}</div>
+        <footer class="footer">© 2023 Niek van Reenen, Timo Oosterom</footer>
+        <h6 class="legal_footer">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</h6>
+    </div>
+    
+    
+    
+    <script href="../config.js"></script>
+
+</body>
+</html>

@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./static/css/style_dashboard.css">
-    <title>MiPSI - Dashboard</title>
-</head>
-
-<body>
-    <div class="header">
-        <p class="header-txt">MiPSI</p>
-    </div>
-
-    <div class="sidebar">
-        <a href="/dashboard"><img class="logo" src="./static/assets/Logo.svg" alt="mipsi logo"></a>
-        <h2>Navigation</h2>
-        <a href="/dashboard"><button class="sb_button" id="Home">Home</button></a> 
-        <a href='/access'><button class="sb_button" id="Access">Access</button></a>
-        <a href="/logout"><button class="sb_button" id="Logout">Logout</button></a>
-        <h5 class="sb_footer">MiPSI - {{version}}</h5>
-        <p class="sb_footer_legal">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED <br> BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
-    </div>
-    <div class="dashboard">
-    </div>
+{% extends 'dashboard_base.html' %}
+{% block content %}
     
-</body>
-</html>
+<p class="a_txt">Registered Minecraft Username: {{current_user.mcname}}</p>
+<p class="a_txt">Registered Minecraft UUID: {{current_user.uuid}}</p>
+<button class="db_button">Ontgrendel Account</button>
+<p class="a_txt">Minecraft nog niet aan dit account gelinkt?</p>
+<a href="/link_mc_acc"><button class="db_button" id="LinkAcc">Link Minecraft Account</button></a>
+<p class="regiwarning">Let op: Het link process kan maar een keer gedaan worden, <br>
+    daarna zal dit MiPSI-account geen andere Minecraft-accounts meer kunnen aannemen. <br>
+    Mocht er iets zijn missgegaan, kun je altijd contact opnemen met de admins in de Discord-server.
+</p>
+<div class="flash_msg">{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+{% endblock %}

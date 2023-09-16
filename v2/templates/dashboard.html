@@ -1,39 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./static/css/style_dashboard.css">
-    <title>MiPSI - Dashboard</title>
-</head>
-
-<body>
-    <div class="header">
-        <p class="header-txt">MiPSI</p>
-    </div>
-
-    <div class="sidebar">
-        <a href="/dashboard"><img class="logo" src="./static/assets/Logo.svg" alt="mipsi logo"></a>
-        <h2>Navigation</h2>
-        <a href="/dashboard"><button class="sb_button" id="Home">Home</button></a> 
-        <a href='/access'><button class="sb_button" id="Access">Access</button></a>
-        <a href="/logout"><button class="sb_button" id="Logout">Logout</button></a>
-        <h5 class="sb_footer">MiPSI - {{version}}</h5>
-        <p class="sb_footer_legal">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED <br> BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
-    </div>
-    <div class="dashboard">
-        <p class="welcome_msg">Welcome {{username}}!!</p>
-        <p class="main_msg">Welkom! Ik ben MiPSI, Minecraft Personal Server Interface. 
-            <br> Hier kun je jouw account activeren op onze server, later kun je hier vast meer doen.
-            <br> Heb je weer wat verkeerd gedaan? dan kun je terecht in onze Discord Server.
-            <br><a href="https://discord.gg/ptCeWGKfS">Hier</a> is een uitnodiging
-        </p>
-        <p class="main_msg">Thimo Smits: Server Owner
-            <br>Timo Oosterom: Development
-            <br>Niek van Reenen: Development
-            <br>Daniel Lodder: Graphic Designer</p>
-
-    </div>
+{% extends 'dashboard_base.html' %}
+{% block content %}
     
-</body>
-</html>
+<p class="welcome_msg">Welkom {{username}} !!!</p>
+<p class="main_msg">Welkom! Ik ben MiPSI, Minecraft Personal Server Interface. 
+    <br> Hier kun je jouw account activeren op onze server, later kun je hier vast meer doen.
+    <br> Heb je weer wat verkeerd gedaan? dan kun je terecht in onze Discord Server.
+    <br><a href="https://discord.gg/ptCeWGKfS">Hier</a> is een uitnodiging.
+</p>
+<p class="main_msg">Thimo Smits: Server Owner
+    <br>Timo Oosterom: Development
+    <br>Niek van Reenen: Development
+    <br>Daniel Lodder: Graphic Designer
+</p>
+<div class="flash_msg">{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+{% endblock %}
