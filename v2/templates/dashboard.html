@@ -1,7 +1,12 @@
 {% extends 'dashboard_base.html' %}
+
+{% block head %}
+    <title>MiPSI - Dashboard</title>
+{% endblock %}
+
 {% block content %}
     
-<p class="welcome_msg">Welkom {{username}} !!!</p>
+<p class="welcome_msg">Welkom {{current_user.username}} !!!</p>
 <p class="main_msg">Welkom! Ik ben MiPSI, Minecraft Personal Server Interface. 
     <br> Hier kun je jouw account activeren op onze server, later kun je hier vast meer doen.
     <br> Heb je weer wat verkeerd gedaan? dan kun je terecht in onze Discord Server.

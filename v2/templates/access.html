@@ -1,7 +1,13 @@
 {% extends 'dashboard_base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="./static/css/access.html">
+<title>MiPSI - Access</title>
+{% endblock %}
+
 {% block content %}
 
-<p class="a_txt">Status: {{"account linked" if current_user.mcname != None else "acount not yet linked"}} </p>
+<p class="font-mc" style="font-size: 30px;">Status: {{"account linked" if current_user.mcname != None else "account not linked yet"}} </p>
 <p class="a_txt">Registered Minecraft Username: {{current_user.mcname}}</p>
 <p class="a_txt">Registered Minecraft UUID: {{current_user.uuid}}</p>
 <button class="db_button">Ontgrendel Account</button>

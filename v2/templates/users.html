@@ -1,0 +1,69 @@
+{% extends 'dashboard_base.html' %}
+
+{% block head %}
+	<link rel="stylesheet" href="/static/css/users.css">
+	<title>MiPSI - Users</title>
+{% endblock %}
+
+{% block content %}
+	<p class="font-mc">(manage) users</p>
+
+	<center>	
+		<table>
+		<tr>
+			<th>id</th>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Roles</th>
+			<th>MCName</th>
+			<th>Uuid</th>
+			<th colspan="2">Manage</th>
+		</tr>
+		{% for user in userlist %}
+		<tr user-id="{{user.id}}">
+			<td>{{user.id}}</td>
+			<td>{{user.username}}</td>
+			<td>{{user.email}}</td>
+			<td>{{user.roles}}</td>
+			<td>{{user.mcname}}</td>
+			<td>{{user.uuid}}</td>
+			<td><a href="/users/{{user.id}}"><button title="Edit {{user.username}}">Edit</button></a></td>
+			<td><button onclick="deleteUsr({{user.id}}, '{{user.username}}')" title="Delete">X</button></td>
+		</tr>
+		{% endfor %}
+	</table>
+	</center>
+	
+	<div>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					{{ message }}
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+	</div>
+
+	<script>
+		function deleteUsr(id, username) {
+			if (confirm(`Are you sure you want to delete user: ${username} with id: ${id}`)) {
+				fetch('/users', {
+					method: 'DELETE',
+					headers: {
+						id:id
+					}
+				}).then(response => {
+					if (response.ok) {
+						console.log(`user ${id} deleted`);
+						const usrRow = document.querySelector(`tr[user-id="${id}"]`);
+						if (usrRow) {
+							usrRow.remove();
+						};
+					}
+				}).catch(error => {
+					console.error('fetch error', error);
+				});
+			}	
+		}
+	</script>
+{% endblock %}

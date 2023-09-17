@@ -1,0 +1,51 @@
+{% extends 'dashboard_base.html' %}
+
+{% block head %}
+	<title>MiPSI - {{user.username}}</title>
+	<link rel="stylesheet" href="/static/css/user.css">
+{% endblock %}
+
+{% block content %}
+<h2 class="font-mc">{{user.username}}</h2>
+
+<a href="/users/{{user.id -1 if user.id >=1 else 0}}"><button>previous</button></a>
+<a href="/users/{{user.id +1}}"><button>next</button></a>
+
+<center>
+	<table>
+		<tr>
+			<th colspan="3">UserData</th>
+		</tr>
+		<tr>
+			<td><button onclick="editUsr('id')" title="Edit Id">Edit</button></td>
+			<th>ID</th>
+			<td>{{user.id}}</td>
+		</tr>
+		<tr>
+			<td><button onclick="editUsr('username')" title="Edit Username">Edit</button></td>
+			<th>Username</th>
+			<td>{{user.username}}</td>
+		</tr>
+		<tr>
+			<td><button onclick="editUsr('email')" title="Edit Email">Edit</button></td>
+			<th>email</th>
+			<td>{{user.email}}</td>
+		</tr>
+		<tr>
+			<td><button onclick="editUsr('roles')" title="Edit Role (not yet supported)">Edit</button></td>
+			<th>roles</th>
+			<td>{{user.roles}}</td>
+		</tr>
+		<tr>
+			<td><button onclick="editUsr('mcname')" title="Edit MCName">Edit</button></td>
+			<th>mcname</th>
+			<td>{{user.mcname}}</td>
+		</tr>
+		<tr>
+			<td><button onclick="editUsr('uuid')" title="Edit UUID">Edit</button></td>
+			<th>uuid</th>
+			<td>{{user.uuid}}</td>
+		</tr>
+	</table>
+</center>
+{% endblock %}

@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
     margin: 0px;
     padding: 0px;
-    background-color: rgb(60, 60, 60);
+    background-color: rgb(45, 49, 51);
     overflow: hidden;
 }
 
@@ -23,7 +23,7 @@ body {
     text-align: center;
     font-family: minecraft;
     font-size: 40px;
-    border: 5px solid rgb(125, 125, 125);
+    border: 5px solid #736b5e;
     border-bottom: none;
     padding: 10px;
     color: rgb(255, 170, 70);
@@ -43,7 +43,7 @@ body {
     align-content: center;
     text-align: center;
     font-family: minecraft;
-    border: 5px solid rgb(125, 125, 125);
+    border: 5px solid #736b5e;
     border-bottom: none;
     color: #c5c5c5;
 }
@@ -54,7 +54,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 5px solid rgb(125, 125, 125);
+    border: 5px solid #736b5e;
     border-bottom: none;
     border-left: none;
 }
@@ -70,7 +70,7 @@ body {
     color: #BF6900;
     margin: 2px;
     border: 2px solid #ffffff;
-    /* border-radius: 5px; */
+    border-radius: 2px; 
     
 }
 
@@ -148,11 +148,7 @@ body {
 
 .font-mc {
     font-family: minecraft;
+    color: #c5c5c5;
 }
-/* 
-B1C1C0 - light gray
-F58F29 - Dark orange
-5C6784 - baby blue
-1D263B - Dark blue
-BF6900 - Darker orange
-*/
+
+

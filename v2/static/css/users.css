@@ -1,0 +1,12 @@
+/* users spefific scc, default dashboard css in dashboard.css (extends dashboard.css)*/
+
+table, th, td {
+    border: 1px solid #b8b8b8;
+    border-collapse: collapse;
+    color: #c5c5c5;
+}
+
+th, td {
+    padding: 2px 4px 2px 4px;
+    font-family: minecraft;
+}
