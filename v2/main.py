@@ -14,7 +14,7 @@ import re
 
 
 __version__ = '1.0.0-dev'
-
+__srv_name__ = 'testsrv'
 __email_pattern__ = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
 
 
@@ -45,8 +45,21 @@ loginmng = LoginManager()
 loginmng.init_app(app)
 
 
+#--------------------
+# default jinja vars
+
+@app.context_processor
+def injVars():
+	return dict(current_user=current_user, version=__version__, srvName=__srv_name__)
+
+
 #--------------------------------
 # endpoints / html build scripts
+
+
+@app.route('/favicon.ico')
+def favicon():
+	return send_file('static/assets/favicon.ico')
 
 @app.route('/')
 def root():
@@ -75,71 +88,6 @@ def login() -> Callable:
 				flash('Username or Password incorrect') # user doesn't exist, username
 				return render_template('/login.html')
 
-		
-
-@app.route('/logout')
-def logout():
-	if logout_user():
-		flash('logged out')
-		return redirect('/login')
-
-
-@app.route('/favicon.ico')
-def favicon():
-	return send_file('static/assets/favicon.ico')
-
-
-@app.route('/dashboard')
-@roles_accepted('admin', 'operator', 'player')
-def dashboard():
-	return render_template('dashboard.html', version=__version__, username=current_user.username)
-
-@app.route('/access')
-@roles_accepted('admin', 'operator', 'player')
-def access():
-	#flash('Account already registered')
-	return render_template('access.html', version=__version__)
-
-@app.route('/admin') # temp
-def admin():
-	return str(User.query.all())
-
-@app.route('/link_mc_acc', methods=['GET', 'POST'])
-def link_mc_acc():
-	match request.method:
-		case 'GET':
-			if current_user.mcname != None:
-				flash('minecraft account already linked')
-				return redirect('/access')
-			return render_template('/link_mc_acc.html')
-		
-		case 'POST':
-			current_user.mcname = request.form['mcname']
-			current_user.uuid = request.form['uuid']
-			db.session.commit()
-
-			flash('Minecraft Account Data Succesfull Linked')
-			return redirect('/access')
-
-	return render_template('link_mc_acc.html')
-
-@app.route('/add_role')
-def add():
-	role = Role.query.filter_by(id=0).first() # 0: player, 1: operator, 2: admin
-	current_user.roles.append(role)
-	db.session.commit()
-	return "succes"
-
-
-@app.route('/delete')
-def delete():
-	# User.query.filter_by(username='test2').first().delete()
-	current_user.delete()
-	db.session.commit()
-	flash('account deleted')
-	return redirect('/login')
-
-
 @app.route('/createaccount', methods=['GET', 'POST'])
 def hash():
 	match request.method:
@@ -162,6 +110,126 @@ def hash():
 				db.session.commit()
 				flash('Account Created')
 				return render_template('/createaccount.html')
+
+@app.route('/logout')
+def logout():
+	if logout_user():
+		flash('logged out')
+		return redirect('/login')
+
+@app.route('/dashboard')
+@roles_accepted('admin', 'operator', 'player')
+def dashboard():
+	return render_template('dashboard.html')
+
+@app.route('/access')
+@roles_accepted('admin', 'operator', 'player')
+def access():
+	#flash('Account already registered')
+	return render_template('access.html', version=__version__)
+
+@app.route('/link_mc_acc', methods=['GET', 'POST'])
+def link_mc_acc():
+	match request.method:
+		case 'GET':
+			if current_user.mcname != None:
+				flash('minecraft account already linked')
+				return redirect('/access')
+			return render_template('/link_mc_acc.html')
+		
+		case 'POST':
+			current_user.mcname = request.form['mcname']
+			current_user.uuid = request.form['uuid']
+			db.session.commit()
+
+			flash('Minecraft Account Data Succesfull Linked')
+			return redirect('/access')
+
+	return render_template('link_mc_acc.html')
+
+@app.route('/mcconsole')
+def console():
+
+	return render_template('mcconsole.html')
+
+@app.route('/admin')
+def admin():
+
+	return render_template('admin.html')
+
+@app.route('/users', methods=['GET', 'DELETE'])
+def users():
+	match request.method:
+		case 'GET':
+			users = User.query.all()
+			return render_template('/users.html', userlist=users)
+		case 'DELETE':
+			try:
+				id = request.headers.get('id')
+				usr = User.query.filter_by(id=id).first()
+				print(colored(f'USER {id}:{usr.username} DELETED', 'red'))
+				flash(f'user {usr.username} deleted')
+				usr.delete()
+				db.session.commit()
+				return {}, 200 # return 200:OK
+			except:
+				return {}, 404 # return 404:NOT FOUND
+			
+@app.route('/users/<int:userId>', methods=['GET', 'UPDATE', 'DELETE'])
+def user(userId):
+	match request.method:
+		case 'GET':
+			usrIDS = [usr.id for usr in User.query.all()]
+			closest = min(usrIDS, key=lambda x:abs(x-userId))
+			if userId != closest:
+				return redirect(f'/users/{closest}')
+			usr = User.query.filter_by(id=userId).first()
+			if usr == None:
+				usr = User.query.filter_by(id=0).first()
+
+			return render_template('/user.html', user=usr)
+			
+		case 'UPDATE':
+			...
+		case 'DELETE':
+			...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route('/temp')`
+# def temp():
+# 	usr = User(id=0)
+# 	db.session.add(usr)
+# 	db.session.commit()
+# 	return 'hi'`
+
+# @app.route('/add_role') # temp
+# def add():
+# 	role = Role.query.filter_by(id=0).first() # 0: player, 1: operator, 2: admin
+# 	current_user.roles.append(role)
+# 	db.session.commit()
+# 	return "succes"
+
+# @app.route('/delete') # temp
+# def delete():
+# 	# User.query.filter_by(username='test2').first().delete()
+# 	current_user.delete()
+# 	db.session.commit()
+# 	flash('account deleted')
+# 	return redirect('/login')
+
+
 		
 
 
@@ -231,6 +299,9 @@ class Role(db.Model, RoleMixin):
 	name = db.Column(db.String(10), unique=True)
 
 	def __repr__(self):
+		return f'{self.id}:{self.name}'
+	
+	def __str__(self):
 		return f'&lt {self.id}, {self.name} &gt'
 
 
