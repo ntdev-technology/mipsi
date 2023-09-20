@@ -1,5 +1,5 @@
 from flask import Flask, flash, render_template, send_file, redirect, request
-from flask_login import LoginManager, login_manager, UserMixin, login_user, logout_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from flask_security import Security, SQLAlchemySessionUserDatastore, RoleMixin, roles_accepted
 from flask_sqlalchemy import SQLAlchemy
 from termcolor import colored
@@ -7,8 +7,8 @@ from datetime import datetime
 from typing import Callable
 import subprocess
 import threading
-import random
 import bcrypt
+import json
 import os
 import re
 
@@ -111,7 +111,9 @@ def hash():
 				flash('Account Created')
 				return render_template('/createaccount.html')
 
+
 @app.route('/logout')
+@roles_accepted('admin', 'operator', 'player')
 def logout():
 	if logout_user():
 		flash('logged out')
@@ -129,6 +131,7 @@ def access():
 	return render_template('access.html', version=__version__)
 
 @app.route('/link_mc_acc', methods=['GET', 'POST'])
+@roles_accepted('admin', 'operator', 'player')
 def link_mc_acc():
 	match request.method:
 		case 'GET':
@@ -148,16 +151,19 @@ def link_mc_acc():
 	return render_template('link_mc_acc.html')
 
 @app.route('/mcconsole')
+@roles_accepted('admin', 'operator')
 def console():
 
 	return render_template('mcconsole.html')
 
 @app.route('/admin')
+@roles_accepted('admin')
 def admin():
 
 	return render_template('admin.html')
 
 @app.route('/users', methods=['GET', 'DELETE'])
+@roles_accepted('admin')
 def users():
 	match request.method:
 		case 'GET':
@@ -176,6 +182,7 @@ def users():
 				return {}, 404 # return 404:NOT FOUND
 			
 @app.route('/users/<int:userId>', methods=['GET', 'UPDATE', 'DELETE'])
+@roles_accepted('admin')
 def user(userId):
 	match request.method:
 		case 'GET':
@@ -187,7 +194,8 @@ def user(userId):
 			if usr == None:
 				usr = User.query.filter_by(id=0).first()
 
-			return render_template('/user.html', user=usr)
+			usrjson = usr.tojson()
+			return render_template('/user.html', user=usr, userJson=usrjson)
 			
 		case 'UPDATE':
 			...
@@ -241,7 +249,7 @@ def user_loader(userId):
 	return User.query.get(userId)
 
 roles_users = db.Table('roles_users',
-		       		   db.Column('userId', db.Integer, db.ForeignKey('user.id')),
+			   		   db.Column('userId', db.Integer, db.ForeignKey('user.id')),
 					   db.Column('roleId', db.Integer, db.ForeignKey('role.id')))
 
 
@@ -292,6 +300,22 @@ class User(db.Model, UserMixin):
 	
 	def get_mcname(self) -> str:
 		return self.mcname
+	
+	def tojson(self):
+		user_data = {
+			'id': self.id,
+			'active': self.active,
+			'email': self.email,
+			'username': self.username,
+			'uuid': self.uuid,
+			'mcname': self.mcname,
+			'authenticated': self.authenticated,
+			'roles': [f'{role.id}:{role.name}' for role in self.roles]
+		}
+		return json.dumps(user_data)
+
+
+
 
 class Role(db.Model, RoleMixin):
 	__tablename__ = 'role'
