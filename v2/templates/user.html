@@ -48,8 +48,12 @@
 		</tr>
 	</table>
 </center>
-<script src="/static/js/user.js"></script>
+{% endblock %}
+
+{% block js %}
 <script>
-	user={{user}};
+	var user= {{user|tojson}};
+	console.log(user);
 </script>
+<script src="/static/js/user.js"></script>
 {% endblock %}

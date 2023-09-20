@@ -195,6 +195,7 @@ def user(userId):
 				usr = User.query.filter_by(id=0).first()
 
 			usrjson = usr.tojson()
+			print(usrjson)
 			return render_template('/user.html', user=usr, userJson=usrjson)
 			
 		case 'UPDATE':
