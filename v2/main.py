@@ -1,4 +1,4 @@
-from flask import Flask, flash, render_template, send_file, redirect, request
+from flask import Flask, flash, render_template, send_file, redirect, Response, request
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from flask_security import Security, SQLAlchemySessionUserDatastore, RoleMixin, roles_accepted
 from flask_sqlalchemy import SQLAlchemy
@@ -156,6 +156,12 @@ def console():
 
 	return render_template('mcconsole.html')
 
+
+@app.route('/files')
+def files():
+	
+	return 'files, not make yet <a href="/dashboard">back</a>'
+
 @app.route('/admin')
 @roles_accepted('admin')
 def admin():
@@ -195,11 +201,14 @@ def user(userId):
 				usr = User.query.filter_by(id=0).first()
 
 			usrjson = usr.tojson()
-			print(usrjson)
 			return render_template('/user.html', user=usr, userJson=usrjson)
 			
 		case 'UPDATE':
-			...
+			item = request.headers.get('item')
+			val = request.headers.get(f'{item}')
+			print(request.headers)
+
+			return Response(f'{{"item": {item}, "value": {val}}}')
 		case 'DELETE':
 			...
 

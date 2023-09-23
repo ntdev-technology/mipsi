@@ -20,6 +20,7 @@
         <a href='/access'><button class="sb_button" id="Access">Access</button></a>
         {% if "operator" in current_user.roles %}
         <a href="/mcconsole"><button class="sb_button" id="Console">Console</button></a>
+        <a href="/files"><button class="sb_button" id="Files">Files</button></a>
         {% endif %}
         {% if "admin" in current_user.roles %}
         <a href="/admin"><button class="sb_button" id="Admin">Admin</button></a>

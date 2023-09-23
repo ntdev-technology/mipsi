@@ -8,43 +8,43 @@
 {% block content %}
 <h2 class="font-mc">{{user.username}}</h2>
 
-<a href="/users/{{user.id -1 if user.id >=1 else 0}}"><button>previous</button></a>
+<a href="/users/{{user.id -1 if user.id >=1 else user.id}}"><button>previous</button></a>
 <a href="/users/{{user.id +1}}"><button>next</button></a>
-
+<p></p>
 <center>
 	<table>
 		<tr>
 			<th colspan="3">UserData</th>
 		</tr>
 		<tr>
-			<td><button onclick="editUsr('id')" title="Edit Id">Edit</button></td>
+			<td><button onclick="editItem('id')" id="butid" title="Edit Id">Edit</button></td>
 			<th>ID</th>
-			<td>{{user.id}}</td>
+			<td id="valid">{{user.id}}</td>
 		</tr>
 		<tr>
-			<td><button onclick="editUsr('username')" title="Edit Username">Edit</button></td>
+			<td><button onclick="editItem('username')" id="butusername" title="Edit Username">Edit</button></td>
 			<th>Username</th>
-			<td>{{user.username}}</td>
+			<td id="valusername">{{user.username}}</td>
 		</tr>
 		<tr>
-			<td><button onclick="editUsr('email')" title="Edit Email">Edit</button></td>
+			<td><button onclick="editItem('email')" id="butemail" title="Edit Email">Edit</button></td>
 			<th>email</th>
-			<td>{{user.email}}</td>
+			<td id="valemail">{{user.email}}</td>
 		</tr>
 		<tr>
-			<td><button onclick="editUsr('roles')" title="Edit Role (not yet supported)">Edit</button></td>
+			<td><button onclick="editItem('roles')" id="butroles" title="Edit Role (not yet supported)">Edit</button></td>
 			<th>roles</th>
-			<td>{{user.roles}}</td>
+			<td id="valroles">{{user.roles}}</td>
 		</tr>
 		<tr>
-			<td><button onclick="editUsr('mcname')" title="Edit MCName">Edit</button></td>
+			<td><button onclick="editItem('mcname')" id="butmcname" title="Edit MCName">Edit</button></td>
 			<th>mcname</th>
-			<td>{{user.mcname}}</td>
+			<td id="valmcname">{{user.mcname}}</td>
 		</tr>
 		<tr>
-			<td><button onclick="editUsr('uuid')" title="Edit UUID">Edit</button></td>
+			<td><button onclick="editItem('uuid')" id="butuuid" title="Edit UUID">Edit</button></td>
 			<th>uuid</th>
-			<td>{{user.uuid}}</td>
+			<td id="valuuid">{{user.uuid}}</td>
 		</tr>
 	</table>
 </center>
@@ -52,8 +52,7 @@
 
 {% block js %}
 <script>
-	var user= {{user|tojson}};
-	console.log(user);
+	var user= {{userJson|safe}};
 </script>
 <script src="/static/js/user.js"></script>
 {% endblock %}
