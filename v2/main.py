@@ -3,12 +3,14 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from flask_security import Security, SQLAlchemySessionUserDatastore, RoleMixin, roles_accepted
 from flask_sqlalchemy import SQLAlchemy
 from termcolor import colored
+from exceptions import RoleNotFoundError
 from datetime import datetime
 from typing import Callable
 import subprocess
 import threading
 import bcrypt
 import json
+import ast
 import os
 import re
 
@@ -206,11 +208,21 @@ def user(userId):
 		case 'UPDATE':
 			item = request.headers.get('item')
 			val = request.headers.get(f'{item}')
-			print(request.headers)
+			usr = User.query.filter_by(id=userId).first()
 
-			return Response(f'{{"item": {item}, "value": {val}}}')
+			if item == 'roles':
+				rolelst = ast.literal_eval(val)		# convert a string in list format ('[1,2,3]') to a list ([1,2,3])
+				val = usr.updateRoles(rolelst)
+			elif item == 'id':
+				setattr(usr, item, val)
+				return redirect(f'/users/{val}')	# redirect to the new page when a users id is updated instead of stayting on a id that doesn't exist anymore
+			elif item in ['username', 'email', 'mcname', 'uuid']:
+				setattr(usr, item, val)
+			db.session.commit()
+			return Response(f'{{"item": "{item}", "value": "{val}"}}')
+
 		case 'DELETE':
-			...
+			raise NotImplementedError()
 
 
 
@@ -285,7 +297,10 @@ class User(db.Model, UserMixin):
 			return False
 
 	def __repr__(self) -> str:
-		return f'&lt {self.username}, roles:{self.roles} &gt' # "&lt" and "&gt" are needed to get a < and > to display in html
+		return f'User instance with username:{self.username}, roles:{self.roles}' # "&lt" and "&gt" are needed to get a < and > to display in html
+
+	def __str__(self) -> str:
+		return f'User: {self.username}, Roles: {self.roles}'
 
 	def is_active(self) -> str:
 		return self.active
@@ -311,6 +326,17 @@ class User(db.Model, UserMixin):
 	def get_mcname(self) -> str:
 		return self.mcname
 	
+	def updateRoles(self, roles):
+		self.roles.clear()
+		for roleId in roles:
+			role = Role.query.filter_by(id=roleId).first()
+			if role:
+				self.roles.append(role)
+			else:
+				raise RoleNotFoundError()
+		db.session.commit()
+		return self.roles
+
 	def tojson(self):
 		user_data = {
 			'id': self.id,

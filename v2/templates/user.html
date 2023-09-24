@@ -34,7 +34,14 @@
 		<tr>
 			<td><button onclick="editItem('roles')" id="butroles" title="Edit Role (not yet supported)">Edit</button></td>
 			<th>roles</th>
-			<td id="valroles">{{user.roles}}</td>
+			<td id="valroles">
+				<span id="currentRoles" style="float: left;" >{{ user.roles }}</span>
+				<select id="selectRoles" style="display: none;" size="3" multiple>
+					{% for role in [{'name':'player', 'id':0}, {'name':'operator', 'id':1}, {'name':'admin', 'id':2}] %}
+						<option value="{{ role.id }}:{{ role.name }}">{{ role.name }}</option>
+					{% endfor %}
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td><button onclick="editItem('mcname')" id="butmcname" title="Edit MCName">Edit</button></td>
@@ -47,6 +54,9 @@
 			<td id="valuuid">{{user.uuid}}</td>
 		</tr>
 	</table>
+	<br>
+	<p id="status"></p>
+	<p class="font-mc">if the value stays on "loading..." longer than a few seconds something happend in the backend. try again. <br>if it keeps happeing, please contact a developper and explain what you were trying to do.</p>
 </center>
 {% endblock %}
 
