@@ -215,11 +215,13 @@ def user(userId):
 				val = usr.updateRoles(rolelst)
 			elif item == 'id':
 				setattr(usr, item, val)
-				return redirect(f'/users/{val}')	# redirect to the new page when a users id is updated instead of stayting on a id that doesn't exist anymore
+				db.session.commit()
+				# return redirect(f'/users/{val}')	# redirect to the new page when a users id is updated instead of stayting on a id that doesn't exist anymore
 			elif item in ['username', 'email', 'mcname', 'uuid']:
 				setattr(usr, item, val)
+				
 			db.session.commit()
-			return Response(f'{{"item": "{item}", "value": "{val}"}}')
+			return Response(f'{{"item": "{item}", "value": "{val}"}}', status=200)
 
 		case 'DELETE':
 			raise NotImplementedError()

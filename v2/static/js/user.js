@@ -1,6 +1,6 @@
 const selectRoles = document.getElementById('selectRoles');
 const currentRoles = document.getElementById('currentRoles');
-const stat = document.getElementById('status')
+const editRolesHelp = document.getElementById('editRolesHelp');
 
 selectRoles.addEventListener('change', () => {
     const selectedRoles = Array.from(selectRoles.selectedOptions, option => option.value);
@@ -11,14 +11,13 @@ function editItem(item) {
 	console.log(`edit${item}`);
 	const but  = document.getElementById(`but${item}`);
 	const val  = document.getElementById(`val${item}`);
-	//const stat = document.getElementById('status');
 	
 	but.innerHTML = 'Save';
 	but.onclick = function() { saveItem(item); };
 	
 	if (item === 'roles') {
         selectRoles.style.display = 'block';
-		stat.innerHTML = 'hold ctrl to select multiple roles at the same time'
+		editRolesHelp.style.display = 'block';
 		return
 	} else {
 		ip = document.createElement('input');
@@ -44,7 +43,7 @@ function saveItem(item) {
 
 	if (item === 'roles') {
 		selectRoles.style.display = 'none';
-		stat.innerHTML = ''
+		editRolesHelp.style.display = 'none';
 		const selectedRoles = Array.from(selectRoles.selectedOptions, option => parseInt(option.value[0]));
         headers[item] = JSON.stringify(selectedRoles);
 	} else {
@@ -62,9 +61,11 @@ function saveItem(item) {
 	.then(res => res.json())
 	.then(res => {
 		if (res.item === 'roles') {
-			currentRoles.innerHTML = res.value
+			currentRoles.innerHTML = res.value;
+		} else if (res.item === 'id') {
+			window.location.href = `/users/${res.value}`;
 		} else {
-			val.textContent = res.value
+			val.textContent = res.value;
 		}
 	});
 }
